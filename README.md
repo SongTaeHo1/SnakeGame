@@ -37,3 +37,6 @@ sudo apt-get install libncurses5-dev libncursesw5-dev
 ```
 그 후 `makefile`을 ` make snakeGame `을 통해서 컴파일 한 후,
 `./snakeGame`으로 실행하세요.
+
+## 실행 영상
+[유튜브 영상](https://www.youtube.com/watch?v=C6VoZ0WVboM)
