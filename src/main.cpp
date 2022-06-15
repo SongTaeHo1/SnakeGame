@@ -58,13 +58,13 @@ int main(){
     }
   }
   nodelay(stdscr, FALSE);
-  m.TotalScore += m.maxLength + m.timeS + m.totalPlus + m.totalMinus + m.totalMinus;
+  m.TotalScore += m.TotalMaxLenth + m.timeS + m.totalPlus + m.totalMinus + m.totalMinus;
 
   init_pair(9,COLOR_WHITE,COLOR_BLACK);
   attron(COLOR_PAIR(9));
   mvprintw(25,55,"YOU DIE");
   mvprintw(26,55,"Total Score : %d",m.TotalScore);
-  mvprintw(27,55,"MaxLength : %d, Time : %d ",m.maxLength,m.timeS);
+  mvprintw(27,55,"MaxLength : %d, Time : %d ",m.TotalMaxLenth,m.timeS);
   mvprintw(28,55,"+ : %d , - : %d , G : %d ",m.totalPlus,m.totalMinus,m.totalGate);
   mvprintw(29,55,"Enter Any Key to Game End");
   attroff(COLOR_PAIR(9));

@@ -23,6 +23,7 @@ class Map{
     int GateNum = 0;
     int totalGate =0;
     int maxLength = 0;
+    int TotalMaxLenth = 0;
 
     int startT = clock();
     int timeS;

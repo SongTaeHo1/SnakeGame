@@ -394,6 +394,10 @@ void Map::mapLevelUp(){
   plusNum = 0;
   minusNum = 0;
   GateNum = 0;
+  if(TotalMaxLenth < maxLength){
+    TotalMaxLenth = maxLength;
+  }
+  maxLength = 0;
 
   s.isBody = {4,4,4,3,4,2};
   s.isDirection = 'r';
