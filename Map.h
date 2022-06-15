@@ -12,6 +12,10 @@ class Map{
     int PoisonItem = 0;
     int PotalON = 0;
 
+    int setPotal = 0; // 게이트 설정 여부
+    int anoRow = 0; //다른 게이트 행
+    int anoCol = 0; //다른 게이트 열
+
     deque<int> whereGrow;
     deque<int> wherePoison;
     deque<int> wherePotal;
@@ -28,6 +32,8 @@ class Map{
 
     void createPotal();
     int isPotalHere(int i,int j);
+    void potalMove();
+    void setGate();
 
 
     void initMap();

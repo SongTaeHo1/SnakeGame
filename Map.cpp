@@ -94,6 +94,7 @@ int Map::isPoisonHere(int i,int j){
 }
 
 void Map::createPotal(){
+  if(isSnakeHere(wherePotal[0],wherePotal[1]) == 0 && isSnakeHere(wherePotal[2],wherePotal[3]) == 0 ){
   wherePotal.clear();
 
   int rowOne,colOne;
@@ -119,6 +120,7 @@ void Map::createPotal(){
   wherePotal.push_back(rowTwo);
   wherePotal.push_back(colTwo);
   PotalON = 1;
+}
 }
 
 int Map::isPotalHere(int i, int j){
@@ -196,9 +198,58 @@ void Map::isItem(){
   }
 }
 
+void Map::potalMove(){
+  char di;
+  if(anoRow == 0){
+    di = 'd';
+    s.isBody.push_front(anoCol);
+    s.isBody.push_front(anoRow+1);
+  }
+  else if(anoRow == 39){
+    di = 'u';
+    s.isBody.push_front(anoCol);
+    s.isBody.push_front(anoRow-1);
+  }
+  else if(anoCol == 0){
+    di = 'r';
+    s.isBody.push_front(anoCol+1);
+    s.isBody.push_front(anoRow);
+  }
+  else if(anoCol == 49){
+    di = 'l';
+    s.isBody.push_front(anoCol-1);
+    s.isBody.push_front(anoRow);
+  }
+  s.isDirection = di;
+
+  s.isBody.pop_back();
+  s.isBody.pop_back();
+
+}
+
+void Map::setGate(){
+  if(setPotal == 0){
+    if(isSnakeHere(wherePotal[0],wherePotal[1]) == 1){
+      anoRow = wherePotal[2];
+      anoCol = wherePotal[3];
+    }
+    else{
+      anoRow = wherePotal[0];
+      anoCol = wherePotal[1];
+    }
+  }
+}
+
 void Map::updateMap(){
   clear();
-  s.isMove();
+  if(isSnakeHere(wherePotal[0],wherePotal[1]) == 0 && isSnakeHere(wherePotal[2],wherePotal[3]) == 0 ){
+    s.isMove();
+    setPotal = 0;
+  }
+  else{
+    setGate();
+    potalMove();
+  }
   isCrash();
   isItem();
   start_color();
