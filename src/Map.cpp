@@ -224,6 +224,78 @@ void Map::potalMove(){
     s.isBody.push_front(anoCol-1);
     s.isBody.push_front(anoRow);
   }
+  else{ // 테두리 아닌거 판정
+    if(mapArray[anoRow+1][anoCol] == 0 && mapArray[anoRow-1][anoCol] == 0 && mapArray[anoRow][anoCol+1] == 0 && mapArray[anoRow][anoCol-1] == 0){
+      //진출 자유로움
+      if(s.isDirection == 'u'){
+        s.isBody.push_front(anoCol);
+        s.isBody.push_front(anoRow-1);
+      }
+      else if(s.isDirection == 'd'){
+        s.isBody.push_front(anoCol);
+        s.isBody.push_front(anoRow+1);
+      }
+      else if(s.isDirection == 'l'){
+        s.isBody.push_front(anoCol-1);
+        s.isBody.push_front(anoRow);
+      }
+      else if(s.isDirection == 'r'){
+        s.isBody.push_front(anoCol+1);
+        s.isBody.push_front(anoRow);
+      }
+    }
+
+    else if(mapArray[anoRow][anoCol+1] == 0 && mapArray[anoRow][anoCol-1] == 0){
+      //좌우 자유로움
+      if(s.isDirection == 'r'){
+        s.isBody.push_front(anoCol+1);
+        s.isBody.push_front(anoRow);
+        di = 'r';
+      }
+      else{
+        s.isBody.push_front(anoCol-1);
+        s.isBody.push_front(anoRow);
+        di = 'l';
+      }
+    }
+
+    else if(mapArray[anoRow+1][anoCol] == 0 && mapArray[anoRow-1][anoCol] == 0){
+      //위아래 자유로움
+      if(s.isDirection == 'u' || s.isDirection == 'r'){
+        s.isBody.push_front(anoCol);
+        s.isBody.push_front(anoRow-1);
+        di = 'u';
+      }
+      else{
+        s.isBody.push_front(anoCol);
+        s.isBody.push_front(anoRow+1);
+        di = 'd';
+      }
+    }
+    else{ //한방향 자유로움
+      if(mapArray[anoRow+1][anoCol] == 0){
+        s.isBody.push_front(anoCol);
+        s.isBody.push_front(anoRow+1);
+        di = 'd';
+      }
+      else if(mapArray[anoRow-1][anoCol] == 0){
+        s.isBody.push_front(anoCol);
+        s.isBody.push_front(anoRow-1);
+        di = 'u';
+      }
+      else if(mapArray[anoRow][anoCol+1] == 0){
+        s.isBody.push_front(anoCol+1);
+        s.isBody.push_front(anoRow);
+        di = 'r';
+      }
+      else{
+        s.isBody.push_front(anoCol-1);
+        s.isBody.push_front(anoRow);
+        di = 'l';
+      }
+    }
+
+  }
   s.isDirection = di;
 
   s.isBody.pop_back();

@@ -19,10 +19,10 @@ int main(){
 
   srand(time(NULL));
 
-  m.targetL = 1; //(rand() % 6) + 10;
-  m.targetM = 1; //rand() % 10 + 2;
-  m.targetG = 1; //rand() % 10 + 2;
-  m.targetP = 1; //rand() % 10 + 2;
+  m.targetL = (rand() % 6) + 5;
+  m.targetM = rand() % 5 + 2;
+  m.targetG = rand() % 5 + 2;
+  m.targetP = rand() % 5 + 2;
 
   while(TRUE){
     std::this_thread::sleep_for(250ms);

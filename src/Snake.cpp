@@ -65,7 +65,7 @@ void Snake::changeDirection(int key){
   }
   /* 겜 종료
   else if(key == 'c'){
-    isDie(); 
+    isDie();
   }
   늘리고 줄이고 치트키
   else if(key == 'd'){
