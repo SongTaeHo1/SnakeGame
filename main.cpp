@@ -9,11 +9,38 @@ using namespace std;
 int main(){
   Map m = Map();
 
+  int randT = 0;
+  int randD = 0;
+  int randP = 0;
   m.initMap();
   keypad(stdscr, TRUE);
   nodelay(stdscr, TRUE);
+  srand(time(NULL));
   while(TRUE){
-    std::this_thread::sleep_for(300ms);
+    std::this_thread::sleep_for(250ms);
+
+    randT += rand() % 5;
+    if(randT > 50){
+      if(m.GrowItem == 3){
+        m.delGrow();
+      }
+      m.createGrow();
+      randT = 0;
+    }
+    randD += rand() % 5;
+    if(randD > 50){
+      if(m.PoisonItem == 3){
+        m.delPoison();
+      }
+      m.createPoison();
+      randD = 0;
+    }
+    randP += rand() % 3;
+    if(randP > 70){
+      m.createPotal();
+      randP = 0;
+    }
+
     m.updateMap();
     int key;
     key = getch();

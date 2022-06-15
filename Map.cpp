@@ -10,19 +10,21 @@ int Map::isSnakeHere(int i, int j){
 }
 
 void Map::createGrow(){
-  int flag = 1;
-  int row,col;
-  srand(time(NULL));
-  while(flag){
-    row = rand() % 40;
-    col = rand() % 50;
-    if(isSnakeHere(row,col) == 0 && mapArray[row][col] == 0 && isPoisonHere(row,col) == 0){
-      flag = 0;
+  if(GrowItem < 3){
+    int flag = 1;
+    int row,col;
+
+    while(flag){
+      row = rand() % 40;
+      col = rand() % 50;
+      if(isSnakeHere(row,col) == 0 && mapArray[row][col] == 0 && isPoisonHere(row,col) == 0){
+        flag = 0;
+      }
     }
+    whereGrow.push_back(row);
+    whereGrow.push_back(col);
+    GrowItem++;
   }
-  whereGrow.push_back(row);
-  whereGrow.push_back(col);
-  GrowItem++;
 }
 
 void Map::delGrow(int i, int j){
@@ -32,6 +34,12 @@ void Map::delGrow(int i, int j){
       GrowItem--;
     }
   }
+}
+
+void Map::delGrow(){
+  whereGrow.pop_front();
+  whereGrow.pop_front();
+  GrowItem--;
 }
 
 int Map::isGrowHere(int i,int j){
@@ -44,19 +52,21 @@ int Map::isGrowHere(int i,int j){
 }
 
 void Map::createPoison(){
-  int flag = 1;
-  int row,col;
-  srand(time(NULL));
-  while(flag){
-    row = rand() % 40;
-    col = rand() % 50;
-    if(isSnakeHere(row,col) == 0 && mapArray[row][col] == 0 && isGrowHere(row,col) == 0){
-      flag = 0;
+  if(PoisonItem < 3){
+    int flag = 1;
+    int row,col;
+
+    while(flag){
+      row = rand() % 40;
+      col = rand() % 50;
+      if(isSnakeHere(row,col) == 0 && mapArray[row][col] == 0 && isGrowHere(row,col) == 0){
+        flag = 0;
+      }
     }
+    wherePoison.push_back(row);
+    wherePoison.push_back(col);
+    PoisonItem++;
   }
-  wherePoison.push_back(row);
-  wherePoison.push_back(col);
-  PoisonItem++;
 }
 
 void Map::delPoison(int i,int j){
@@ -66,6 +76,12 @@ void Map::delPoison(int i,int j){
       PoisonItem--;
     }
   }
+}
+
+void Map::delPoison(){
+  wherePoison.pop_front();
+  wherePoison.pop_front();
+  PoisonItem--;
 }
 
 int Map::isPoisonHere(int i,int j){
@@ -79,7 +95,7 @@ int Map::isPoisonHere(int i,int j){
 
 void Map::createPotal(){
   wherePotal.clear();
-  srand(time(NULL));
+
   int rowOne,colOne;
   int rowTwo,colTwo;
   int flag = 1;
@@ -126,6 +142,9 @@ void Map::initMap(){
   init_pair(2,COLOR_BLACK,COLOR_BLACK);
   init_pair(3,COLOR_GREEN,COLOR_GREEN);
 
+  whereGrow.clear();
+  wherePoison.clear();
+
 
   for(int i = 0; i <40; i++){
     for(int j = 0; j <50; j++){
@@ -151,6 +170,7 @@ void Map::initMap(){
   refresh();
 
 }
+
 void Map::isCrash(){ //벽 충돌 판정
   for(int i = 0; i < 40; i++){
     for(int j = 0; j < 50; j++){
@@ -233,7 +253,6 @@ void Map::updateMap(){
   if(PoisonItem < 1){
     createPoison();
   }
-
   if(PotalON == 0){
     createPotal();
   }

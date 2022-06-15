@@ -18,10 +18,12 @@ class Map{
 
     void createGrow();
     void delGrow(int i, int j);
+    void delGrow();
     int isGrowHere(int i,int j);
 
     void createPoison();
     void delPoison(int i, int j);
+    void delPoison();
     int isPoisonHere(int i, int j);
 
     void createPotal();
