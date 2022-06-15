@@ -190,11 +190,13 @@ void Map::isItem(){
         s.increaseL();
         delGrow(i,j);
         plusNum++;
+        totalPlus++;
       }
       if(isPoisonHere(i,j) == 1 && isSnakeHere(i,j) == 1){
         s.decreaseL();
         delPoison(i,j);
         minusNum++;
+        totalMinus++;
       }
     }
   }
@@ -241,6 +243,7 @@ void Map::setGate(){
     }
     setPotal = 1;
     GateNum++;
+    totalGate++;
   }
 }
 
@@ -296,6 +299,40 @@ void Map::makeMission(){
     mvprintw(19,65," (   )");
   }
   attroff(COLOR_PAIR(9));
+}
+
+void Map::mapLevelUp(){
+  for(int i = 0; i< 40; i++){
+    for(int j = 0; j < 50; j++){
+      mapArray[i][j] = mapStage[mapLevel][i][j];
+    }
+  }
+
+  GrowItem = 0;
+  PoisonItem = 0;
+  PotalON = 0;
+  whereGrow.clear();
+  wherePotal.clear();
+  wherePoison.clear();
+
+  setPotal = 0; // 게이트 설정 여부
+  anoRow = 0; //다른 게이트 행
+  anoCol = 0; //다른 게이트 열
+
+  plusNum = 0;
+  minusNum = 0;
+  GateNum = 0;
+
+  s.isBody = {4,4,4,3,4,2};
+  s.isDirection = 'r';
+  s.prevDirection = 'r';
+  s.isLength = 3;
+  s.isLife = 1;
+
+  mapLevel += 1;
+  if(mapLevel == 3){
+    mapLevel = 0;
+  }
 }
 
 void Map::updateMap(){
@@ -370,6 +407,10 @@ void Map::updateMap(){
   }
   if(PotalON == 0){
     createPotal();
+  }
+
+  if((maxLength >= targetL) && (plusNum >= targetP) && (minusNum >= targetM) && (GateNum >= targetG) ){
+    mapLevelUp();
   }
 
 
