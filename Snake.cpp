@@ -1,6 +1,37 @@
 #include <ncurses.h>
 #include "Snake.h"
 
+
+void Snake::increaseL(){
+  int tailRow = isBody[isLength * 2 - 2];
+  int tailCol = isBody.back();
+  if(isDirection == 'u'){
+    tailCol += 1;
+  }
+  else if(isDirection == 'd'){
+    tailCol -= 1;
+  }
+  else if(isDirection == 'l'){
+    tailRow += 1;
+  }
+
+  else if(isDirection == 'r'){
+    tailRow -= 1;
+  }
+  isBody.push_back(tailRow);
+  isBody.push_back(tailCol);
+  isLength++;
+}
+
+void Snake::decreaseL(){
+  isBody.pop_back();
+  isBody.pop_back();
+  isLength--;
+  if(isLength < 3){
+    isDie();
+  }
+}
+
 void Snake::isDie(){
   isLife = 0;
 }
@@ -33,6 +64,12 @@ void Snake::changeDirection(int key){
   else if(key == 'c'){
     isDie(); // 겜 종료
   }
+  else if(key == 'd'){
+    increaseL();
+  }
+  else if(key == 's'){
+    decreaseL();
+  }
   prevDirection = isDirection;
 }
 
@@ -53,6 +90,12 @@ void Snake::isMove(){
   }
   else{
     nextRow += 1;
+  }
+
+  for(int k = 2; k < isLength * 2; k += 2){ //자기몸 충돌 판정
+    if(isBody[k] == nextRow && isBody[k+1] == nextCol){
+      isDie();
+    }
   }
 
   isBody.push_front(nextCol);

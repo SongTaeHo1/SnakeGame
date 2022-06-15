@@ -23,7 +23,7 @@ void Map::initMap(){
 
   for(int i = 0; i <40; i++){
     for(int j = 0; j <50; j++){
-      if(mapArray[i][j]== 1){
+      if(mapArray[i][j]== 1 || mapArray[i][j] == 2){
           attron(COLOR_PAIR(1));
           printw(" ");
           attroff(COLOR_PAIR(1));
@@ -44,10 +44,20 @@ void Map::initMap(){
   refresh();
 
 }
+void Map::isCrash(){ //벽 충돌 판정
+  for(int i = 0; i < 40; i++){
+    for(int j = 0; j < 50; j++){
+      if(mapArray[i][j] == 1 && isSnakeHere(i,j) == 1){
+        s.isDie();
+      }
+    }
+  }
+}
 
 void Map::updateMap(){
   clear();
   s.isMove();
+  isCrash();
   start_color();
   init_pair(1,COLOR_YELLOW,COLOR_YELLOW);
   init_pair(2,COLOR_BLACK,COLOR_BLACK);
@@ -55,7 +65,7 @@ void Map::updateMap(){
 
   for(int i = 0; i <40; i++){
     for(int j = 0; j <50; j++){
-      if(mapArray[i][j]== 1){
+      if(mapArray[i][j]== 1 || mapArray[i][j] == 2){
           attron(COLOR_PAIR(1));
           printw(" ");
           attroff(COLOR_PAIR(1));
@@ -74,9 +84,5 @@ void Map::updateMap(){
     printw("\n");
   }
   refresh();
-
-}
-
-void Map::delMap(){
 
 }

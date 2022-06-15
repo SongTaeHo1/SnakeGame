@@ -26,7 +26,7 @@ int main(){
 
   init_pair(9,COLOR_WHITE,COLOR_BLACK);
   attron(COLOR_PAIR(9));
-  printw("\nYOU DIE");
+  printw("\nYOU DIE\nEnter Any Key to Game End");
   attroff(COLOR_PAIR(9));
   getch();
   refresh();

@@ -18,4 +18,6 @@ class Snake{
 
         int getL(){return isLength;}
         int getD(){return isDirection;}
+        void increaseL();
+        void decreaseL();
 };
