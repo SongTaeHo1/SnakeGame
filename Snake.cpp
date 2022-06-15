@@ -3,24 +3,26 @@
 
 
 void Snake::increaseL(){
-  int tailRow = isBody[isLength * 2 - 2];
-  int tailCol = isBody.back();
-  if(isDirection == 'u'){
-    tailCol += 1;
-  }
-  else if(isDirection == 'd'){
-    tailCol -= 1;
-  }
-  else if(isDirection == 'l'){
-    tailRow += 1;
-  }
+  if(isLength < 20){
+    int tailRow = isBody[isLength * 2 - 2];
+    int tailCol = isBody.back();
+    if(isDirection == 'u'){
+      tailCol += 1;
+    }
+    else if(isDirection == 'd'){
+      tailCol -= 1;
+    }
+    else if(isDirection == 'l'){
+      tailRow += 1;
+    }
 
-  else if(isDirection == 'r'){
-    tailRow -= 1;
+    else if(isDirection == 'r'){
+      tailRow -= 1;
+    }
+    isBody.push_back(tailRow);
+    isBody.push_back(tailCol);
+    isLength++;
   }
-  isBody.push_back(tailRow);
-  isBody.push_back(tailCol);
-  isLength++;
 }
 
 void Snake::decreaseL(){

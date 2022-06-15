@@ -134,7 +134,7 @@ int Map::isPotalHere(int i, int j){
 
 void Map::initMap(){
   initscr();
-  resize_term(70,70);
+  resize_term(100,100);
 
   curs_set(0);
   noecho();
@@ -189,10 +189,12 @@ void Map::isItem(){
       if(isGrowHere(i,j) == 1 && isSnakeHere(i,j) == 1){
         s.increaseL();
         delGrow(i,j);
+        plusNum++;
       }
       if(isPoisonHere(i,j) == 1 && isSnakeHere(i,j) == 1){
         s.decreaseL();
         delPoison(i,j);
+        minusNum++;
       }
     }
   }
@@ -237,7 +239,63 @@ void Map::setGate(){
       anoRow = wherePotal[0];
       anoCol = wherePotal[1];
     }
+    setPotal = 1;
+    GateNum++;
   }
+}
+
+void Map::makeScore(){
+
+  init_pair(9,COLOR_WHITE,COLOR_BLACK);
+
+  attron(COLOR_PAIR(9));
+  mvprintw(4,55,"Score Board");
+  mvprintw(6,55,"Length / Max : %d / %d",s.isLength,20);
+  mvprintw(7,55,"+ : %d",plusNum);
+  mvprintw(8,55,"- : %d",minusNum);
+  mvprintw(9,55,"Gate : %d",GateNum);
+  mvprintw(10,55,"MaxLength : %d",maxLength);
+  timeS = clock()/1000 - startT/1000;
+  mvprintw(11,55,"Time : %d",timeS);
+
+  attroff(COLOR_PAIR(9));
+
+}
+
+void Map::makeMission(){
+  init_pair(9,COLOR_WHITE,COLOR_BLACK);
+
+  attron(COLOR_PAIR(9));
+  mvprintw(14,55,"Mission Board");
+  mvprintw(16,55,"B : %d",targetL);
+  if(maxLength >= targetL){
+    mvprintw(16,65," ( V )");
+  }
+  else{
+    mvprintw(16,65," (   )");
+  }
+  mvprintw(17,55,"+ : %d",targetP);
+  if(plusNum >= targetP){
+    mvprintw(17,65," ( V )");
+  }
+  else{
+    mvprintw(17,65," (   )");
+  }
+  mvprintw(18,55,"- : %d",targetM);
+  if(minusNum >= targetM){
+    mvprintw(18,65," ( V )");
+  }
+  else{
+    mvprintw(18,65," (   )");
+  }
+  mvprintw(19,55,"G : %d",targetG);
+  if(GateNum >= targetG){
+    mvprintw(19,65," ( V )");
+  }
+  else{
+    mvprintw(19,65," (   )");
+  }
+  attroff(COLOR_PAIR(9));
 }
 
 void Map::updateMap(){
@@ -260,6 +318,7 @@ void Map::updateMap(){
   init_pair(4,COLOR_RED,COLOR_RED);
   init_pair(5,COLOR_BLUE,COLOR_BLUE);
   init_pair(6,COLOR_MAGENTA,COLOR_MAGENTA);
+  init_pair(9,COLOR_WHITE,COLOR_BLACK);
 
   for(int i = 0; i <40; i++){
     for(int j = 0; j <50; j++){
@@ -297,6 +356,11 @@ void Map::updateMap(){
     }
     printw("\n");
   }
+  if(maxLength < s.isLength){
+    maxLength = s.isLength;
+  }
+  makeScore();
+  makeMission();
 
   if(GrowItem < 1){
     createGrow();
@@ -307,6 +371,7 @@ void Map::updateMap(){
   if(PotalON == 0){
     createPotal();
   }
+
 
   refresh();
 

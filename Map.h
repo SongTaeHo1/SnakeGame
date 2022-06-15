@@ -16,6 +16,20 @@ class Map{
     int anoRow = 0; //다른 게이트 행
     int anoCol = 0; //다른 게이트 열
 
+    int plusNum = 0;
+    int minusNum = 0;
+    int GateNum = 0;
+    int maxLength = 0;
+
+    int startT = clock();
+    int timeS;
+    int TotalScore = 0;
+
+    int targetL;
+    int targetP;
+    int targetM;
+    int targetG;
+
     deque<int> whereGrow;
     deque<int> wherePoison;
     deque<int> wherePotal;
@@ -38,6 +52,9 @@ class Map{
 
     void initMap();
     void updateMap();
+    void makeScore();
+    void makeMission();
+
     int isSnakeHere(int i,int j);
 
     void isCrash();

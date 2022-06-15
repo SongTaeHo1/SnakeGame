@@ -12,10 +12,18 @@ int main(){
   int randT = 0;
   int randD = 0;
   int randP = 0;
+
   m.initMap();
   keypad(stdscr, TRUE);
   nodelay(stdscr, TRUE);
+
   srand(time(NULL));
+
+  m.targetL = (rand() % 6) + 10;
+  m.targetM = rand() % 10 + 2;
+  m.targetG = rand() % 10 + 2;
+  m.targetP = rand() % 10 + 2;
+
   while(TRUE){
     std::this_thread::sleep_for(250ms);
 
@@ -50,10 +58,13 @@ int main(){
     }
   }
   nodelay(stdscr, FALSE);
+  m.TotalScore += m.maxLength + m.timeS + m.plusNum + m.minusNum + m.GateNum;
 
   init_pair(9,COLOR_WHITE,COLOR_BLACK);
   attron(COLOR_PAIR(9));
-  printw("\nYOU DIE\nEnter Any Key to Game End");
+  mvprintw(25,55,"YOU DIE");
+  mvprintw(26,55,"Total Score : %d",m.TotalScore);
+  mvprintw(27,55,"Enter Any Key to Game End");
   attroff(COLOR_PAIR(9));
   getch();
   refresh();
