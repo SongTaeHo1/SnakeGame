@@ -7,17 +7,17 @@ void Snake::increaseL(){
     int tailRow = isBody[isLength * 2 - 2];
     int tailCol = isBody.back();
     if(isDirection == 'u'){
-      tailCol += 1;
+      tailRow += 1;
     }
     else if(isDirection == 'd'){
-      tailCol -= 1;
+      tailRow -= 1;
     }
     else if(isDirection == 'l'){
-      tailRow += 1;
+      tailCol += 1;
     }
 
     else if(isDirection == 'r'){
-      tailRow -= 1;
+      tailCol -= 1;
     }
     isBody.push_back(tailRow);
     isBody.push_back(tailCol);
