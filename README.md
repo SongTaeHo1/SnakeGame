@@ -1,6 +1,6 @@
 # Snake game using ncurses library
 
-## Team 4
+## Team 송태호
 |학번|이름|
 |:--:|:--:|
 |20181632|송태호|
